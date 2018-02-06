@@ -1,2 +1,2 @@
 # sudu
-Cal sudu itself
+给定数组数组，计算数独。
