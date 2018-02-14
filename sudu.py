@@ -70,7 +70,6 @@ def GetZeroIndex(array):
             if i == 0:
                 ZeroIndex.append([index,array[index].index(i)]);
                 suduArray[index][array[index].index(i)]= 'A';
-    #print ZeroIndex
     return ZeroIndex
 
 '''
@@ -85,15 +84,12 @@ def CheckSudu(array):
 			continue;
 		else:
 			print "array error!!!!"
-			print len(v)
-			print set(v)
 			return False;
 		
 		#每一行
 		if len(array[i]) == len(set(array[i])):
 			continue;
 		else:
-			print v
 			return False;
 
 	
@@ -110,7 +106,6 @@ def ConfirmResultMissMoreThanOneNumber(array):
 	ZeroCoordinate = GetZeroIndex(array);
 	for Coordinate in ZeroCoordinate:
 		temp = JudgeNumberByIndex(array,Coordinate);
-		print temp
 '''
 给定坐标,然后求出该index所在的位置的行和列元素的交集
 如果只缺一个数, 就能确定该位置的确切值
@@ -135,8 +130,6 @@ def ConfirmResultOnlyMissOneNumber(array):
 	ZeroCoordinate = GetZeroIndex(array);
 	#GetZeroIndex 会将0 替换成A,防止求0的index, 每一行都是第一个的问题,这里需要将其换回
 	ReplaceAwith0(suduArray);
-	#if ZeroCoordinate:
-	#	print ZeroCoordinate
 	for Coordinate in ZeroCoordinate:
 		#根据坐标得到该坐标空位的交集
 		temp = JudgeNumberByIndex(array,Coordinate);
@@ -144,8 +137,6 @@ def ConfirmResultOnlyMissOneNumber(array):
 			return;
 		if len(temp) == 1:
 			pass
-			#print temp
-			#print '%d  %d '%(Coordinate[0],Coordinate[1])
 			#将该值填补到原始数组中
 			#因为只缺一个数字，因此可以直接将其POP到array中,当填写一个数后
 			#重新执行该函数,防止本来A空位 Miss 多个数字,但是B空位补全后,本可以补全
@@ -186,14 +177,11 @@ def ConfirmOneNumIn99Matrix(array, index):
     for i in range(0,9):
         if ind in MatrixArrayTable[i]:
             arrayindex = i;
-            #print arrayindex
-    #print MatrixArrayTable[arrayindex];
     #计算给定的坐标集合的坐标缺几个数
     #得到index所在的矩阵的所有数
     sudu33MatrixArray = [];
     for i in MatrixArrayTable[arrayindex]:
         sudu33MatrixArray.append(suduArray[i[0]][i[1]]);
-    #print sudu33MatrixArray
 
     #如果只有一个数缺失,就将填写到数组中 如果没有则不管
     print len(set(sudu33MatrixArray))
@@ -203,30 +191,16 @@ def ConfirmOneNumIn99Matrix(array, index):
               #这里得知i就是当前矩阵缺失的数字,将i填写到原始数组中
               #得到当前3*3矩阵的数组0的index
               #MatrixArrayTable[arrayindex] 得到的是数独数组的某一行的坐标集合
-              #print "i:%d"%i
               missindex = sudu33MatrixArray.index(0) 
-              #print "missindex:%d"%missindex
-              #print MatrixArrayTable[arrayindex][missindex]
               sudumissindex = MatrixArrayTable[arrayindex][missindex];
+              #将得到的坐标位置填写缺失的数字
               array[sudumissindex[0]][sudumissindex[1]] = i
     else:
         pass
 
-    #将得到的坐标位置填写缺失的数字
+
 
 	
-
-
-
-
-
-
-
-
-
-
-
-
 
 #将替换的A 变为0
 def ReplaceAwith0(array):
