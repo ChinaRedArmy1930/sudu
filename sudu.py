@@ -19,11 +19,11 @@ suduArray = [
     [0, 0, 1, 0, 0, 0, 0, 9, 0],
     [0, 0, 6, 5, 0, 8, 2, 0, 0],
     [6, 0, 0, 8, 0, 0, 3, 0, 0],
-    [0, 9, 5, 0, 1, 0, 0, 2, 0],
-    [0, 0, 2, 0, 0, 3, 5, 0, 6],
-    [0, 0, 8, 7, 0, 6, 0, 0, 0],
-    [0, 2, 9, 0, 0, 0, 0, 0, 0],
-    [0, 5, 0, 9, 8, 0, 0, 0, 7]
+    [0, 9, 5, 0, 1, 0, 0, 0, 0],
+    [0, 0, 2, 0, 0, 3, 0, 0, 6],
+    [0, 0, 8, 7, 0, 6, 1, 3, 4],
+    [0, 2, 9, 0, 0, 0, 6, 8, 9],
+    [0, 5, 0, 9, 8, 0, 0, 2, 7]
 ];
 A = [ 
 	  [5, 1, 8, 2, 3, 9, 4, 6, 7],
@@ -155,7 +155,79 @@ def ConfirmResultOnlyMissOneNumber(array):
 		else:
 			pass
 
+'''
+确定Miss多个数的情况
+'''
+def ConfirmServerNumber(array):
+    pass
+
+'''
+确认9宫格中的缺一个的情况
+'''
+def ConfirmOneNumIn99Matrix(array, index):
+    pass
+    #首先需要使用查表法确认给定的坐标在9宫格中的哪个位置
+    MatrixArrayTable = [
+                        [[0,0],[0,1],[0,2],[1,0],[1,1],[1,2],[2,0],[2,1],[2,2]],
+                        [[0,3],[0,4],[0,5],[1,3],[1,4],[1,6],[2,3],[2,4],[2,5]],
+                        [[0,6],[0,7],[0,8],[1,6],[1,7],[1,8],[2,6],[2,7],[2,8]],
+                        [[3,0],[3,1],[3,2],[4,0],[4,1],[5,2],[5,0],[5,1],[5,2]],
+                        [[3,3],[3,4],[3,5],[4,3],[4,4],[4,5],[5,3],[5,4],[5,5]],
+                        [[3,6],[3,7],[3,8],[4,6],[4,7],[4,8],[5,6],[5,7],[5,8]],
+                        [[6,0],[6,1],[6,2],[7,0],[7,1],[7,2],[8,0],[8,1],[8,2]],
+                        [[6,3],[6,4],[6,5],[7,3],[7,4],[7,5],[8,3],[8,4],[8,5]],
+                        [[6,6],[6,7],[6,8],[7,6],[7,7],[7,8],[8,6],[8,7],[8,8]],
+                       ];
+    ind = [index[0],index[1]];
+    arrayindex = 0;
+    missindex = [];
+    #sudumissindex 得到的是缺失的空格位置的确切坐标
+    sudumissindex = [];
+    for i in range(0,9):
+        if ind in MatrixArrayTable[i]:
+            arrayindex = i;
+            #print arrayindex
+    #print MatrixArrayTable[arrayindex];
+    #计算给定的坐标集合的坐标缺几个数
+    #得到index所在的矩阵的所有数
+    sudu33MatrixArray = [];
+    for i in MatrixArrayTable[arrayindex]:
+        sudu33MatrixArray.append(suduArray[i[0]][i[1]]);
+    #print sudu33MatrixArray
+
+    #如果只有一个数缺失,就将填写到数组中 如果没有则不管
+    print len(set(sudu33MatrixArray))
+    if (len(set(sudu33MatrixArray)) == 9) and (0 in set(sudu33MatrixArray)):
+        for i in range(0,9):
+          if i not in sudu33MatrixArray:
+              #这里得知i就是当前矩阵缺失的数字,将i填写到原始数组中
+              #得到当前3*3矩阵的数组0的index
+              #MatrixArrayTable[arrayindex] 得到的是数独数组的某一行的坐标集合
+              #print "i:%d"%i
+              missindex = sudu33MatrixArray.index(0) 
+              #print "missindex:%d"%missindex
+              #print MatrixArrayTable[arrayindex][missindex]
+              sudumissindex = MatrixArrayTable[arrayindex][missindex];
+              array[sudumissindex[0]][sudumissindex[1]] = i
+    else:
+        pass
+
+    #将得到的坐标位置填写缺失的数字
+
 	
+
+
+
+
+
+
+
+
+
+
+
+
+
 #将替换的A 变为0
 def ReplaceAwith0(array):
     ZeroIndex = [];
@@ -168,16 +240,20 @@ def ReplaceAwith0(array):
 
 
 if __name__ == '__main__':
-	pass
-	for i in suduArray:
-		print i
-	#CheckSudu(A);
-	#首先确定只有一个数字的空位,然后将其补齐
-	ConfirmResultOnlyMissOneNumber(suduArray);
-	ReplaceAwith0(suduArray);
-	for i in suduArray:
-		print i
-	#ConfirmResultMissMoreThanOneNumber(suduArray);
+    pass
+    for i in suduArray:
+    	print i
+    #CheckSudu(A);
+    #首先确定只有一个数字的空位,然后将其补齐
+    #ConfirmResultOnlyMissOneNumber(suduArray);
+    #ReplaceAwith0(suduArray);
+    #for i in suduArray:
+    #	print i
+    #ConfirmResultMissMoreThanOneNumber(suduArray);
+    v = [8,7];
+    ConfirmOneNumIn99Matrix(suduArray,v);
+    for i in suduArray:
+        print i
     
 	
 	
