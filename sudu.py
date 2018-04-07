@@ -1,6 +1,20 @@
 # coding=utf-8
 #/usr/bin/python
 import os
+
+#9*9坐标数组
+MatrixArrayTable   =   [
+                        [[0,0],[0,1],[0,2],[1,0],[1,1],[1,2],[2,0],[2,1],[2,2]],
+                        [[0,3],[0,4],[0,5],[1,3],[1,4],[1,6],[2,3],[2,4],[2,5]],
+                        [[0,6],[0,7],[0,8],[1,6],[1,7],[1,8],[2,6],[2,7],[2,8]],
+                        [[3,0],[3,1],[3,2],[4,0],[4,1],[5,2],[5,0],[5,1],[5,2]],
+                        [[3,3],[3,4],[3,5],[4,3],[4,4],[4,5],[5,3],[5,4],[5,5]],
+                        [[3,6],[3,7],[3,8],[4,6],[4,7],[4,8],[5,6],[5,7],[5,8]],
+                        [[6,0],[6,1],[6,2],[7,0],[7,1],[7,2],[8,0],[8,1],[8,2]],
+                        [[6,3],[6,4],[6,5],[7,3],[7,4],[7,5],[8,3],[8,4],[8,5]],
+                        [[6,6],[6,7],[6,8],[7,6],[7,7],[7,8],[8,6],[8,7],[8,8]],
+                       ];
+
 suduArray_ok = [
     [5, 0, 0, 0, 3, 9, 0, 6, 0],
     [0, 0, 0, 0, 0, 0, 0, 9, 0],
@@ -152,23 +166,31 @@ def ConfirmResultOnlyMissOneNumber(array):
 def ConfirmServerNumber(array):
     pass
 
+
+'''
+确定3*3宫格中的缺一个数字的坐标
+'''
+def ConfirmIndexOfOneNumIn33Matrix(array):
+    pass
+
+    zeroIndex = GetZeroIndex(array);
+    for row in MatrixArrayTable:
+        printsudu(ConfirmOneNumIn99Matrix(row[0],array));
+        ReplaceAwith0(array);
+          
+    return  array;       
+    #print zeroIndex
+
+
+
 '''
 确认9宫格中的缺一个的情况
+给定array 和 一个index。 会计算index所在的3*3矩阵，如果只缺一个数 则将其补全
 '''
 def ConfirmOneNumIn99Matrix(array, index):
     pass
     #首先需要使用查表法确认给定的坐标在9宫格中的哪个位置
-    MatrixArrayTable = [
-                        [[0,0],[0,1],[0,2],[1,0],[1,1],[1,2],[2,0],[2,1],[2,2]],
-                        [[0,3],[0,4],[0,5],[1,3],[1,4],[1,6],[2,3],[2,4],[2,5]],
-                        [[0,6],[0,7],[0,8],[1,6],[1,7],[1,8],[2,6],[2,7],[2,8]],
-                        [[3,0],[3,1],[3,2],[4,0],[4,1],[5,2],[5,0],[5,1],[5,2]],
-                        [[3,3],[3,4],[3,5],[4,3],[4,4],[4,5],[5,3],[5,4],[5,5]],
-                        [[3,6],[3,7],[3,8],[4,6],[4,7],[4,8],[5,6],[5,7],[5,8]],
-                        [[6,0],[6,1],[6,2],[7,0],[7,1],[7,2],[8,0],[8,1],[8,2]],
-                        [[6,3],[6,4],[6,5],[7,3],[7,4],[7,5],[8,3],[8,4],[8,5]],
-                        [[6,6],[6,7],[6,8],[7,6],[7,7],[7,8],[8,6],[8,7],[8,8]],
-                       ];
+    
     ind = [index[0],index[1]];
     arrayindex = 0;
     missindex = [];
@@ -184,7 +206,7 @@ def ConfirmOneNumIn99Matrix(array, index):
         sudu33MatrixArray.append(suduArray[i[0]][i[1]]);
 
     #如果只有一个数缺失,就将填写到数组中 如果没有则不管
-    print len(set(sudu33MatrixArray))
+    #print len(set(sudu33MatrixArray))
     if (len(set(sudu33MatrixArray)) == 9) and (0 in set(sudu33MatrixArray)):
         for i in range(0,9):
           if i not in sudu33MatrixArray:
@@ -197,9 +219,12 @@ def ConfirmOneNumIn99Matrix(array, index):
               array[sudumissindex[0]][sudumissindex[1]] = i
     else:
         pass
+    
+    return array
 
-
-
+def printsudu(array):
+    for i in array:
+        print i
 	
 
 #将替换的A 变为0
@@ -215,8 +240,8 @@ def ReplaceAwith0(array):
 
 if __name__ == '__main__':
     pass
-    for i in suduArray:
-    	print i
+    #for i in suduArray:
+    #	print i
     #CheckSudu(A);
     #首先确定只有一个数字的空位,然后将其补齐
     #ConfirmResultOnlyMissOneNumber(suduArray);
@@ -224,12 +249,16 @@ if __name__ == '__main__':
     #for i in suduArray:
     #	print i
     #ConfirmResultMissMoreThanOneNumber(suduArray);
-    v = [8,7];
-    ConfirmOneNumIn99Matrix(suduArray,v);
-    for i in suduArray:
-        print i
-    
-	
+    #v = [8,7];
+   #printsudu(suduArray);
+   #print "\n"
+    #printsudu(ConfirmOneNumIn99Matrix(suduArray,v));
+    #for i in suduArray:
+    #    print i
+    #ConfirmIndexOfOneNumIn33Matrix(suduArray);
+    printsudu(suduArray);
+    print "\n"
+    printsudu(ConfirmIndexOfOneNumIn33Matrix(suduArray));
 	
 
 
